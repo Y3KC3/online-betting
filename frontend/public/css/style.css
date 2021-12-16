@@ -1,0 +1,250 @@
+/*los container- es para poner el background y poder utilizarlo*/
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 350px;
+    transform: translateX(400px);
+    transition: all 1s;
+    z-index: 50;
+}
+
+.link-sidebar {
+    font-size: 23px;
+    color: #fff;
+    margin: 5px 0;
+    text-decoration: none;
+    transition: all .2s;
+}
+
+.link-sidebar:hover { color: #aaa; }
+
+.container-image {
+    position: relative;
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/imagen2.jpg');
+    width: 100%;
+    height: 72.6vh;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.signUp-container {
+    position: relative;
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/signUp.jpg');
+    width: 100%;
+    height: 110vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.field { 
+    color: #ffffff ;
+    display: none;
+}
+
+.show { display: block; }
+
+.signIn-container {
+    position: relative;
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/signIn.jpg');
+    width: 100%;
+    height: 80vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.bets-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/bets.jpg');
+    width: 100%;
+    height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.results-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/results.jpg');
+    width: 100%;
+    height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.news-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/news.jpg');
+    width: 100%;
+    height: 90vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/*user*/
+.balance-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/user/balance.jpg');
+    width: 100%;
+    height: 60vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.myBets-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/user/myBets.jpg');
+    width: 100%;
+    height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/*admin*/
+.adminSignIn-container {
+    position: relative;
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/admin/adminSignIn.jpg');
+    width: 100%;
+    height: 90vh;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.userControl-container {
+    position: relative;
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/admin/userControl.jpg');
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#changeRank {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #00000055;
+    display: none;
+    z-index: 100;
+}
+
+/*events*/
+.event-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/event/event.jpg');
+    width: 100%;
+    height: 90vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.createEvent-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/event/createEvent.jpg');
+    width: 100%;
+    height: 90vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.finishEvent-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/event/finishEvent.jpg');
+    width: 100%;
+    height: 90vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.generateReport-container {
+    background: linear-gradient(135deg, #fb7b3377, #233), url('../img/event/generateReport.jpg');
+    width: 100%;
+    height: 90vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.reportButton {
+    background: #fff;
+    border: none;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .2s all;
+}
+
+.reportButtonActive { background: #fb7b33; }
+
+/*de aqui para arriba son las imagenes de fondo que se utiliza*/
+
+.socialNetworks {
+    font-weight: bold;
+    color: #fb7b33;
+    font-style: normal;
+}
+
+.social-networks-icons-container i {
+    color: #222222bb;
+    font-size: 30px;
+    margin: 0 15px;
+    transition: .2s all;
+    cursor: pointer;
+}
+
+.social-networks-icons-container i:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.welcome-card {
+    position: absolute;
+    top: 30px;
+    bottom: 70px;
+    right: 100px;
+    border-radius: 15px;
+    background: #21252933;
+    animation: forwards welcome-card-animation 1s ease-in-out;
+} /*en este caso le ponemos un estilo personalizado ya que bootstrap no nos aporta un estilo personalizado*/
+
+@keyframes welcome-card-animation {
+    0% { transform: translateX(400px); } 
+    100% { transform: translateX(0); }
+} /*Animacion de la carta de bienvenida*/
+
+.networks-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} /*igual colocamos la barra de inicio inferior que sale en la pagina de inicio personalizado*/
+
+.signIn-card {
+    position: absolute;
+    right: 34%;
+    top: 30px;
+    bottom: 50px;
+    width: 400px;
+    background: #21252933;
+    border-radius: 10px;
+} /*aplicamos un estilo personalizado a la tarjeta inicial de sign in*/
+
+.live::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    background: #df0b0b;
+    animation: alternate live .7s ease-in-out infinite; /*aqui invocamos la animacion live que sea alterno que dure 0.7 segundos sea una animacion infinita y que el tipo de animacion empiece lento y despues rapido*/
+    border-radius: 50%;
+} /*creamos un seudo elemento para hacer el circulo de |en vivo| esto no lo tiene bootstrap solo css*/
+
+@keyframes live {
+    0% { opacity: .4; }
+    100% { opacity: 1; }
+} /*creamo la animacion del boton del seudo elemento el cual es el circulo de |en vivo|*/
