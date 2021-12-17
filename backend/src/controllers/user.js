@@ -2,6 +2,7 @@ const passport = require('passport');
 const hash = require('../helpers/hash');
 const User = require('../models/User');
 const Admin = require('../models/Admin');
+const { UserConection } = require('../models/Event');
 
 const ctrl = {};
 
@@ -46,6 +47,19 @@ ctrl.logOut = (req,res) => {
 ctrl.removeUser = async (req,res) => {
     await User.findByIdAndDelete(req.params.id);
     res.send('USER REMOVED');
+};
+
+ctrl.updateBalance = async (req,res) => {
+    await User.findByIdAndUpdate(req.params.id,req.body);
+    const updatedUser = await User.findOne({ _id: req.params.id });
+    res.json(updatedUser);
+};
+
+ctrl.getBets = async (req,res) => {
+    if (req.app.locals.user !== undefined && req.app.locals.user !== null) {
+        const bets = await UserConection.find({ id_user: req.app.locals.user._id });
+        res.send(bets);
+    };
 };
 
 module.exports = ctrl;
