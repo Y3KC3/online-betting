@@ -1,6 +1,6 @@
 import { CardMyBets, HistorialMyBets } from "../parts/user/cardMyBets";
 
-function MyBets (){
+function MyBets ({ eventBet, setEventBet }){
     return(
         <div className="myBets-container p-3">
             <div>
@@ -9,17 +9,17 @@ function MyBets (){
                     <div className="col-5 text-light p-4 h-100" style={{ background: '#21252933' }}>
                         <div className="overflow-auto" style={{ maxHeight: '100%' }}>
                             <h2>ACTIVAS</h2>
-                            <CardMyBets game="Olimpia Milan VS Olypiacos" bets="Gana Olypiacos 20.000$"/>
-                            <CardMyBets game="Utah Jazz VS New Orleans Pelicans" bets="Gana Utah Jazz 50.000$"/>
+                            {(eventBet[0].error)
+                            ?   <div className="text-center">
+                                    <h4 className="my-4 p-3" style={{ border: '1px solid #fff' }}>No Has Hecho Ninguna Apuesta</h4>
+                                </div>
+                            : eventBet.map(event => (event.finished !== true) ? <CardMyBets game={event.game} bets={`${(event.bet == 'Empate') ? event.bet : "Gana " + event.bet} ${event.amount}$`} idEvent={event.id_event} idUser={event.id_user} amount={event.amount} setEventBet={setEventBet}/> : '')}
                         </div>
                     </div>
                     <div className="col text-light p-4 h-100" style={{ background: '#21252933' }}>
                         <div className="overflow-auto" style={{ maxHeight: '100%' }}>
                             <h2>HISTORIAL</h2>
-                            <HistorialMyBets game="Estrella Roja VS Unics Kazan" result="Ganaste La Apuesta"/>
-                            <HistorialMyBets game="Georgia VS Ucrania" result="Perdiste La Apuesta"/>
-                            <HistorialMyBets game="Indiana Pacers VS Toronto Raptors" result="Perdiste La Apuesta"/>
-                            <HistorialMyBets game="Orlando Magic VS Chicago Bulls" result="Ganaste La Apuesta"/>
+                            {eventBet.map(event => (event.finished === true) ? <HistorialMyBets game={event.game} result={(event.bet === event.winner) ? "Ganaste La Apuesta": "Perdiste La Apuesta"}/> : '')}
                         </div>
                     </div>
                 </div>

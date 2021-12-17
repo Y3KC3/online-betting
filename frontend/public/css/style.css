@@ -118,7 +118,7 @@
     background-size: cover;
 }
 
-#changeRank {
+#changeRank, #amount, #moneyToBet {
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -177,6 +177,16 @@
     cursor: pointer;
     transition: .2s all;
 }
+
+.buttonInFinishedEvent { 
+    background: #fb7b33; 
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    outline: none;
+    transition: .3s all;
+}
+.buttonInFinishedEventSelected { background: #ff5e00; }
 
 .reportButtonActive { background: #fb7b33; }
 

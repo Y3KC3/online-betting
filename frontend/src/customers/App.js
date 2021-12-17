@@ -47,13 +47,41 @@ const setAllUsers = (setUsers) => {
     }).catch(error => console.log(error));
 };
 
+const setAllEvents = (setEvents) => {
+  axios.post('http://localhost:9000/events')
+    .then(res => { 
+        const events = res.data;
+        setEvents(events);
+    }).catch(error => console.log(error));
+};
+
+const setAllEventsBet = (setEventBet,setBets) => {
+  axios.post('http://localhost:9000/get/user/bet')
+    .then(res => {
+      const userBets = res.data;
+      const bets = [];
+      userBets.map(bet => { 
+        bets.push((bet.bet !== 'Empate') ? bet.bet : bet.id_event); 
+        setBets(bets); 
+      });
+      setEventBet((userBets.length == 0) ? [{ error: 'No exist best' }]:userBets);
+    }).catch(error => console.log(error));
+};
+
 function App() { //creamos la clase para utilizarlo como componente principal y vamos a extender (extends) los valores de Component (para que no haya ningun problema en el despliegue)
   const [dataUser, setDataUser] = useState(null);
   const [user, setUser] = useState(false);
   const [users,setUsers] = useState([]);
+  const [events,setEvents] = useState([]);
+  const [leagueEvents,setLeagueEvents] = useState([]);
+  const [eventBet,setEventBet] = useState([]);
+  const [bets,setBets] = useState([]);
+
   useEffect(() => { 
-    if (!user) return auth(setUser, setDataUser) 
+    if (!user) auth(setUser, setDataUser);
     if (users.length === 0) { setAllUsers(setUsers) };
+    if (events.length === 0) { setAllEvents(setEvents) };
+    if (eventBet.length === 0) { setAllEventsBet(setEventBet,setBets) };
   });
 
   return ( // aqui lo retornamos y va a ir la sintaxis de JSX que es un parecido a html (no lo confundas no es html es un parecido)
@@ -65,18 +93,18 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
           <Route path="/signUp" element={<SignUp setUsers={setUsers}/>} />
           <Route path="/signIn" element={<SignIn setUser={setUser} setDataUser={setDataUser} />} />
           <Route path="/admin/signIn" element={<AdminSignIn setUser={setUser} setDataUser={setDataUser} />} />
-          <Route path="/bets" element={<Bets />} />
+          <Route path="/bets" element={<Bets leagueEvents={leagueEvents} setLeagueEvents={setLeagueEvents} events={events} setEvents={setEvents} dataUser={dataUser} eventBet={eventBet} bets={bets}/>} />
           <Route path="/results" element={<Results />} />
           <Route path="/news" element={<News />} />
           
-          <Route path="/user/balance" element={<Balance dataUser={dataUser}/>} />
-          <Route path="/user/myBets" element={<MyBets />} />
+          <Route path="/user/balance" element={<Balance dataUser={dataUser} setDataUser={setDataUser}/>} />
+          <Route path="/user/myBets" element={<MyBets eventBet={eventBet} setEventBet={setEventBet}/>} />
           <Route path="/user/statistics" element={<Construction />} />
           <Route path="/user/setting" element={<Construction />} />
 
           <Route path="/event" element={<Event />} />
-          <Route path="/create/event" element={<CreateEvent />} />
-          <Route path="/finish/event" element={<FinishEvent />} />
+          <Route path="/create/event" element={<CreateEvent setEvents={setEvents}/>} />
+          <Route path="/finish/event" element={<FinishEvent events={events} setEvents={setEvents}/>} />
           <Route path="/generate/report" element={<GenerateReport />} />
 
           <Route path="/admin/dashboard" element={<Construction />}/>

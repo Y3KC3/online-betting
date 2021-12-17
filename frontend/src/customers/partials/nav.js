@@ -5,9 +5,9 @@ import axios from 'axios';
 const logOut = (setUser, setDataUser, navigate) => {
     axios.post('http://localhost:9000/user/logOut')
         .then(() => {
+            navigate('/');
             setUser(false);
             setDataUser(null);
-            navigate('/');
         }).catch(error => console.log(error));
 };
 
@@ -55,8 +55,8 @@ function Nav({ auth, dataUser, setUser, setDataUser }) { //aqui lo exportamos de
                                         </div>
                                     : (dataUser.userType == 'organizer')
                                         ?   <div className='d-flex text-justify flex-column'>
-                                                <Link className="link-sidebar" to="/event" onClick={onClickToExit}><i className="fas fa-calendar-alt mx-2"></i>Crear Evento</Link>
-                                                <Link className="link-sidebar" to="/event" onClick={onClickToExit}><i className="fas fa-calendar-alt mx-2"></i>Finalizar Evento</Link>
+                                                <Link className="link-sidebar" to="/create/event" onClick={onClickToExit}><i className="fas fa-calendar-alt mx-2"></i>Crear Evento</Link>
+                                                <Link className="link-sidebar" to="/finish/event" onClick={onClickToExit}><i className="fas fa-calendar-alt mx-2"></i>Finalizar Evento</Link>
                                                 <Link className="link-sidebar" to="/generate/report" onClick={onClickToExit}><i className="fas fa-sticky-note mx-2"></i>Generar Reporte</Link>
                                                 <Link className="link-sidebar" to="/admin/setting" onClick={onClickToExit}><i className="fas fa-cog mx-2"></i>Configuracion</Link>
                                             </div>
