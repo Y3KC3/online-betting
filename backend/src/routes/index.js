@@ -22,6 +22,7 @@ module.exports = app => {
     router.post('/get/user/bet', user.getBets);
     router.post('/define/winner/:id', event.defineWinner);
     router.post('/cancel/event', event.cancelEvent);
+    router.post('/generate/report', event.generateReport);
 
     app.use(router);
 };

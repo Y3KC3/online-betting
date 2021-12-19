@@ -50,7 +50,7 @@ ctrl.removeUser = async (req,res) => {
 };
 
 ctrl.updateBalance = async (req,res) => {
-    await User.findByIdAndUpdate(req.params.id,req.body);
+    await User.findByIdAndUpdate(req.params.id,{ balance: parseInt(req.body.balance) });
     const updatedUser = await User.findOne({ _id: req.params.id });
     res.json(updatedUser);
 };
