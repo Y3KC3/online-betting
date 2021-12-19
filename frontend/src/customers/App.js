@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; //instalamos un modulo de react para el viaje de las barras de navegacion que se llama react-router-dom
+import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import axios from 'axios';
 
 // De aqui hasta abajo llamamos todos los elementos que ya creamos
@@ -26,6 +27,8 @@ import Event from './event/event';
 import CreateEvent from './event/createEvent';
 import FinishEvent from './event/finishEvent';
 import GenerateReport from './event/generateReport';
+//---------DocumentPDF---------/
+import PDFReport from './views/PDFReport';
 //-------------------//
 //------------------------//
 
@@ -76,6 +79,7 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
   const [leagueEvents,setLeagueEvents] = useState([]);
   const [eventBet,setEventBet] = useState([]);
   const [bets,setBets] = useState([]);
+  const [report,setReport] = useState([]);
 
   useEffect(() => { 
     if (!user) auth(setUser, setDataUser);
@@ -105,11 +109,14 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
           <Route path="/event" element={<Event />} />
           <Route path="/create/event" element={<CreateEvent setEvents={setEvents}/>} />
           <Route path="/finish/event" element={<FinishEvent events={events} setEvents={setEvents}/>} />
-          <Route path="/generate/report" element={<GenerateReport />} />
+          <Route path="/generate/report" element={<GenerateReport setReport={setReport}/>} />
 
           <Route path="/admin/dashboard" element={<Construction />}/>
           <Route path="/admin/userControl" element={<UserControl users={users} setUsers={setUsers}/>}/> 
           <Route path="/admin/setting" element={<Construction />} />
+
+          <Route path="/report/pdf" element={<PDFViewer style={{ width: '100%', height: '100vh' }}><PDFReport report={report}/></PDFViewer>} />
+
           <Route path="*" element={<Footer />} />
         </Routes>
         <Footer />

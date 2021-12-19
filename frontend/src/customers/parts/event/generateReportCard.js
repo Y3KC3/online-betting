@@ -1,21 +1,23 @@
-const toggle = e => {
+const toggle = (e,options,option) => {
     const element = e.target;
     element.classList.toggle('reportButtonActive');
+    if (options[option]) { options[option] = false }
+    else { options[option] = true }
 };
 
-export function SmallCard({ name }) {
+export function SmallCard({ name, options, option }) {
     return (
         <div className="d-flex my-2">
-            <button className="reportButton mx-2" onClick={e => toggle(e)}></button>
+            <button className="reportButton mx-2" onClick={e => toggle(e,options,option)}></button>
             <label className="form-label text-light mx-2">{name}</label>
         </div>
     );
 };
 
-export function CardByDate({ name }) {
+export function CardByDate({ name, options, option }) {
     return (
         <div className="d-flex my-2">
-            <button className="reportButton mx-2" onClick={e => toggle(e)}></button>
+            <button className="reportButton mx-2" onClick={e => toggle(e,options, option)}></button>
             <label className="form-label text-light mx-2">{name}</label>
             <div className="d-flex">
                 <div className="d-flex mx-2">
@@ -31,10 +33,10 @@ export function CardByDate({ name }) {
     )
 };
 
-export function CardByEvent({ name }) {
+export function CardByEvent({ name, options, option }) {
     return (
         <div className="d-flex my-2">
-            <button className="reportButton mx-2" onClick={e => toggle(e)}></button>
+            <button className="reportButton mx-2" onClick={e => toggle(e,options, option)}></button>
             <label className="form-label text-light mx-2">{name}</label>
             <div className="d-flex mx-2">
                 <label className="text-light mx-2">EVENTO: </label>

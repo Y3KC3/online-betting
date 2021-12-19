@@ -31,7 +31,7 @@ function Bets({ leagueEvents, setLeagueEvents, events, setEvents, dataUser, bets
                 </div>
                 <div className="col-8 p-4" style={{ background: "#21252955" }}>
                     <h3 className="title live text-light">!EN VIVO!</h3>
-                    <div className="row my-4 gap-2 d-flex justify-content-center">
+                    <div className="row my-4 gap-2 d-flex justify-content-center overflow-auto" style={{ maxHeight: '420px' }}>
                         {(leagueEvents.length === 0)
                             ? events.map(event => (event.finished !== true)
                                 ?   <Card 
