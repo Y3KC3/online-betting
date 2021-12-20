@@ -118,7 +118,7 @@
     background-size: cover;
 }
 
-#changeRank, #amount, #moneyToBet {
+#changeRank, #amount, #moneyToBet, #winner {
     justify-content: center;
     align-items: center;
     width: 100%;

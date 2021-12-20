@@ -2,66 +2,66 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 import {
-  Chart,
-  ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
-  DoughnutController,
-  LineController,
-  PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Decimation,
-  Filler,
-  Legend,
-  Title,
-  Tooltip,
-  SubTitle
+    Chart,
+    ArcElement,
+    LineElement,
+    BarElement,
+    PointElement,
+    BarController,
+    BubbleController,
+    DoughnutController,
+    LineController,
+    PieController,
+    PolarAreaController,
+    RadarController,
+    ScatterController,
+    CategoryScale,
+    LinearScale,
+    LogarithmicScale,
+    RadialLinearScale,
+    TimeScale,
+    TimeSeriesScale,
+    Decimation,
+    Filler,
+    Legend,
+    Title,
+    Tooltip,
+    SubTitle
 } from 'chart.js';
 
 Chart.register(
-  ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
-  DoughnutController,
-  LineController,
-  PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Decimation,
-  Filler,
-  Legend,
-  Title,
-  Tooltip,
-  SubTitle
+    ArcElement,
+    LineElement,
+    BarElement,
+    PointElement,
+    BarController,
+    BubbleController,
+    DoughnutController,
+    LineController,
+    PieController,
+    PolarAreaController,
+    RadarController,
+    ScatterController,
+    CategoryScale,
+    LinearScale,
+    LogarithmicScale,
+    RadialLinearScale,
+    TimeScale,
+    TimeSeriesScale,
+    Decimation,
+    Filler,
+    Legend,
+    Title,
+    Tooltip,
+    SubTitle
 );
 
-function Dashboard() {
+function Dashboard({ events, users, dashboard }) {
     const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Lunes', 'Mates', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 12, 17],
+            data: dashboard.totalWon,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -117,30 +117,26 @@ function Dashboard() {
                                     <div class="row">
                                         <div class="col-lg-3 col-md-6 d-flex stat my-3">
                                             <div class="mx-auto">
-                                                <h6 class="text-muted">Ingresos mensuales</h6>
-                                                <h3 class="font-weight-bold">$50000</h3>
-                                                <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 50.50%</h6>
+                                                <h6 class="text-muted">Monto Total</h6>
+                                                <h3 class="font-weight-bold">${dashboard.totalAmount}</h3>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-6 d-flex stat my-3">
                                             <div class="mx-auto">
                                                 <h6 class="text-muted">Eventos Activos</h6>
-                                                <h3 class="font-weight-bold">100</h3>
-                                                <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 25.50%</h6>
+                                                <h3 class="font-weight-bold">{(events.error !== true || events.length == 0) ? events.length : '0'}</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                                            <div class="mx-auto">
+                                                <h6 class="text-muted">No. de Organizadores</h6>
+                                                <h3 class="font-weight-bold">{dashboard.organizers}</h3>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-6 d-flex stat my-3">
                                             <div class="mx-auto">
                                                 <h6 class="text-muted">No. de usuarios</h6>
-                                                <h3 class="font-weight-bold">2500</h3>
-                                                <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 75.50%</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6 d-flex my-3">
-                                            <div class="mx-auto">
-                                                <h6 class="text-muted">Usuarios nuevos</h6>
-                                                <h3 class="font-weight-bold">500</h3>
-                                                <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 15.50%</h6>
+                                                <h3 class="font-weight-bold">{users.length}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -155,19 +151,20 @@ function Dashboard() {
                                 <div class="col-lg-8 my-3">
                                     <div class="card rounded-0">
                                         <div class="card-header bg-light">
-                                            <h6 class="font-weight-bold mb-0">Número de usuarios de paga</h6>
+                                            <h6 class="font-weight-bold mb-0">Dinero Manejado En Los Eventos</h6>
                                         </div>
                                         <div class="card-body">
-                                            <Line data={data} 
-                                            width={300} 
-                                            height={150}
-                                            option={{ 
-                                                maintainAspectRatio: false,
-                                                scales: {
-                                                    y: {
-                                                        beginAtZero: true
+                                            <Line data={data}
+                                                width={300}
+                                                height={150}
+                                                option={{
+                                                    maintainAspectRatio: false,
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
                                                     }
-                                                }}}/>
+                                                }} />
                                         </div>
                                     </div>
                                 </div>
@@ -176,27 +173,26 @@ function Dashboard() {
                                         <div class="card-header bg-light">
                                             <h6 class="font-weight-bold mb-0">Eventos Recientes</h6>
                                         </div>
-                                        <div class="card-body pt-2">
-                                            <div class="d-flex border-bottom py-2">
-                                                <div class="d-flex mr-3">
-                                                    <h2 class="align-self-center mb-0"><i class="icon ion-md-pricetag"></i></h2>
+                                        {(events.error !== true && events.length !== 0)
+                                            ? events.map(event => <div class="card-body pt-2">
+                                                <div class="d-flex border-bottom py-2">
+                                                    <div class="d-flex mr-3">
+                                                        <h2 class="align-self-center mb-0"><i class="icon ion-md-pricetag"></i></h2>
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h6 class="d-inline-block mb-0">Fondo Total: <span className="text-success">${event.totalAmount}</span></h6>
+                                                        <small class="d-block text-muted">{event.teamOne + ' VS ' + event.teamTwo}</small>
+                                                    </div>
                                                 </div>
-                                                <div class="align-self-center">
-                                                    <h6 class="d-inline-block mb-0">Fondo Total: $250</h6>
-                                                    <small class="d-block text-muted">GUERREROS</small>
+                                            </div>)
+                                            : <div class="card-body pt-2">
+                                                <div class="d-flex border-bottom py-2">
+                                                    <div class="align-self-center">
+                                                        <h6 class="d-inline-block mb-0">No Hay Eventos Recientes</h6>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="d-flex border-bottom py-2">
-                                                <div class="d-flex mr-3">
-                                                    <h2 class="align-self-center mb-0"><i class="icon ion-md-pricetag"></i></h2>
-                                                </div>
-                                                <div class="align-self-center">
-                                                    <h6 class="d-inline-block mb-0">Fondo Total: $250</h6>
-                                                    <small class="d-block text-muted">LEONES</small>
-                                                </div>
-                                            </div>
-                                            <button class="btn w-100 text-light" style={{ background: '#fb7b33' }}>Ver todas</button>
-                                        </div>
+                                            </div>}
+                                        <button class="btn w-100 text-light" style={{ background: '#fb7b33' }}>Ver todas</button>
                                     </div>
                                 </div>
                             </div>

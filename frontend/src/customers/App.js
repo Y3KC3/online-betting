@@ -80,6 +80,15 @@ const setAllEventsEnded = (setEventsEnded) => {
     }).catch(error => console.log(error));
 };
 
+const setDashboardData = (setDashboard) => {
+  axios.post('http://localhost:3001/dashboard/data')
+    .then(res => { 
+        const dashboardData = res.data;
+        console.log(dashboardData);
+        setDashboard(dashboardData);
+    }).catch(error => console.log(error));
+};
+
 function App() { //creamos la clase para utilizarlo como componente principal y vamos a extender (extends) los valores de Component (para que no haya ningun problema en el despliegue)
   const [dataUser, setDataUser] = useState(null);
   const [user, setUser] = useState(false);
@@ -90,13 +99,15 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
   const [bets,setBets] = useState([]);
   const [report,setReport] = useState([]);
   const [eventsEnded,setEventsEnded] = useState([]);
+  const [dashboard,setDashboard] = useState(null);
 
   useEffect(() => { 
     if (!user) auth(setUser, setDataUser);
-    if (users.length === 0) { setAllUsers(setUsers) };
-    if (events.length === 0) { setAllEvents(setEvents) };
-    if (eventBet.length === 0) { setAllEventsBet(setEventBet,setBets) };
-    if (eventsEnded.length === 0) { setAllEventsEnded(setEventsEnded) };
+    if (users.length === 0) { setTimeout(() => setAllUsers(setUsers),1000) };
+    if (events.length === 0) { setTimeout(() => setAllEvents(setEvents),1000) };
+    if (eventBet.length === 0) { setTimeout(() => setAllEventsBet(setEventBet,setBets),1000) };
+    if (eventsEnded.length === 0) { setTimeout(() => setAllEventsEnded(setEventsEnded),1000) };
+    if (dashboard === null) { setTimeout(() => setDashboardData(setDashboard),1000) };
   });
 
   return ( // aqui lo retornamos y va a ir la sintaxis de JSX que es un parecido a html (no lo confundas no es html es un parecido)
@@ -119,10 +130,10 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
 
           <Route path="/event" element={<Event />} />
           <Route path="/create/event" element={<CreateEvent setEvents={setEvents} setEventsEnded={setEventsEnded}/>} />
-          <Route path="/finish/event" element={<FinishEvent events={events} setEvents={setEvents}/>} />
+          <Route path="/finish/event" element={<FinishEvent events={events} setEvents={setEvents} setEventsEnded={setEventsEnded} setEvents={setEvents}/>} />
           <Route path="/generate/report" element={<GenerateReport setReport={setReport}/>} />
 
-          <Route path="/admin/dashboard" element={<Dashboard />}/>
+          <Route path="/admin/dashboard" element={<Dashboard events={events} users={users} dashboard={dashboard}/>}/>
           <Route path="/admin/userControl" element={<UserControl users={users} setUsers={setUsers}/>}/> 
           <Route path="/admin/setting" element={<Construction />} />
 

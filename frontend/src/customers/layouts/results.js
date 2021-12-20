@@ -1,5 +1,17 @@
 import Card from '../parts/card/cardFromResults'; // Importamos lo que seria la estructura de formacion de las Cartas de esta zona de la pagina
 
+const getDate = (totalDate) => {
+    const date = new Date(totalDate);
+    const day = date.getDate();
+    const weekDay = date.getDay();
+    const month = date.getMonth();
+    const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    const days = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${days[weekDay]} ${day} De ${months[month]} A Las ${hours}:${minutes}`;
+};
+
 function Results({ eventsEnded }) { //lo exportamos de una vez
     return (
         <div className="results-container p-4 d-flex justify-content-center">
@@ -11,8 +23,8 @@ function Results({ eventsEnded }) { //lo exportamos de una vez
                         </div>
                     :   eventsEnded.map(event => 
                             <div className="p-3 text-light my-3" id="divContainer" style={{ background: "#21252933" }}>
-                                <h4 className="card-title">{event.finishDate}</h4>
-                                <Card teamOne={event.teamOne} scores="Esto Faltaria..." teamTwo={event.teamTwo} />
+                                <h4 className="card-title">{getDate(event.finishDate)}</h4>
+                                <Card teamOne={event.teamOne} scores={event.result} teamTwo={event.teamTwo} />
                             </div>
                     )}
             </div>

@@ -45,13 +45,17 @@ function CardFromBets({ title, teamOne, teamBetOne, teamTwo, teamBetTwo, id, dat
                         </div>
                     </div>
                     <div>
-                        {(betValidation) 
-                            ?   <div className="my-2 d-flex justify-content-between">
-                                    <button className="btn btn-outline-light btn-sm" value={teamOne} onClick={e => { bets(id, e.target.value) }}>{teamOne}</button>
-                                    <button className="btn btn-outline-light btn-sm" value="Empate" onClick={e => { bets(id, e.target.value) }}>Empate</button>
-                                    <button className="btn btn-outline-light btn-sm" value={teamTwo} onClick={e => { bets(id, e.target.value) }}>{teamTwo}</button>
-                                </div>
-                            :   <p className="px-1">Ya ha apostado en este juego</p>}
+                        {(dataUser !== null)
+                            ? (dataUser.userType == 'user')
+                                ? (betValidation)
+                                    ? <div className="my-2 d-flex justify-content-between">
+                                        <button className="btn btn-outline-light btn-sm" value={teamOne} onClick={e => { bets(id, e.target.value) }}>{teamOne}</button>
+                                        <button className="btn btn-outline-light btn-sm" value="Empate" onClick={e => { bets(id, e.target.value) }}>Empate</button>
+                                        <button className="btn btn-outline-light btn-sm" value={teamTwo} onClick={e => { bets(id, e.target.value) }}>{teamTwo}</button>
+                                    </div>
+                                    : <p className="px-1 text-center">Ya ha apostado en este juego</p>
+                                : <p className='text-center'>No Tiene Disponible El Apostar</p>
+                            : <p className='text-center'>Inicia Seccion Para Apostar</p>}
                     </div>
                 </div>
             </div>
@@ -61,7 +65,7 @@ function CardFromBets({ title, teamOne, teamBetOne, teamTwo, teamBetTwo, id, dat
                         <h4 id="betTitle" className='title'></h4>
                         <input id="inputMoneyToBet" type="number" className="form-control" placeholder="Digite La Cantidad A Apostar" />
                         <div className='p-3 row gap-2'>
-                            <button id="confirmButtonToBet" className='col btn text-light' style={{ background: "#fb7b33" }} onClick={e => betEvent(dataUser, e.target.value,teamOne,teamTwo)}>Confirmar</button>
+                            <button id="confirmButtonToBet" className='col btn text-light' style={{ background: "#fb7b33" }} onClick={e => betEvent(dataUser, e.target.value, teamOne, teamTwo)}>Confirmar</button>
                             <button className='col btn btn-danger' onClick={() => document.getElementById('moneyToBet').style.display = 'none'}>Cancelar</button>
                         </div>
                         <p id="doesNotHaveMoney" className="my-1 text-center" style={{ display: 'none' }}>NO EXISTE CANTIDAD EN SU CUENTA</p>

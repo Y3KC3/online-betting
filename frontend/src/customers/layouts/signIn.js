@@ -30,7 +30,7 @@ function SignIn ({ setUser, setDataUser }){
 
     return (
         <div className="signIn-container">
-            <form className="p-4 signIn-card" onSubmit={e => {e.preventDefault(); onValidation(navigate,data,setUser,setDataUser)}}>
+            <form className="p-4 signIn-card" onSubmit={e => {onValidation(navigate,data,setUser,setDataUser); e.preventDefault()}}>
                 <h1 className="title text-light mb-2 my-2">Inicia Seccion</h1>
                 <div className="mb-3">
                     <label className="form-label text-light">Identificacion</label>
