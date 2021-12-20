@@ -19,6 +19,7 @@ module.exports = app => {
     router.post('/create/event', event.createEvent);
     router.post('/remove/event/:id', event.removeEvent);
     router.post('/event/bet', event.eventBet);
+    router.post('/events/ended', event.eventsEnded);
     router.post('/get/user/bet', user.getBets);
     router.post('/define/winner/:id', event.defineWinner);
     router.post('/cancel/event', event.cancelEvent);

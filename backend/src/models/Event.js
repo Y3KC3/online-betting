@@ -8,7 +8,9 @@ const EventSchema = new Schema({
     teamTwo: { type: String, required: true },
     totalAmount: { type: Number, default: 0 },
     finished: { type: Boolean, default: false },
-    winner: { type: String, default: null }
+    winner: { type: String, default: null },
+    creationDate: { type: Date, default: Date.now  },
+    finishDate: { type: Date, default: null }
 });
 
 const UserConectionWithEvent = new Schema({

@@ -18,7 +18,8 @@ const UserSchema = new Schema({
     sex: { type: String, required: true },
     privacyPolicy: { type: Boolean, required: true },
     balance: { type: Number, default: 0 },
-    userType: { type: String, default: 'user' }
+    userType: { type: String, default: 'user' },
+    creationDate: { type: Date, default: Date.now  }
 });
 
 module.exports = model('user',UserSchema);

@@ -11,7 +11,7 @@ module.exports = app => {
     require('../helpers/passport');
     
     // Configuracion
-    app.set('port', process.env.PORT || 9000);
+    app.set('port', process.env.PORT || 3001);
 
     // Middlewares
 

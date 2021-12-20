@@ -19,6 +19,11 @@ ctrl.getEvents = async (req,res) => {
     };
 };
 
+ctrl.eventsEnded = async (req,res) => {
+     const eventsEnded = await Event.find({ finished: true }).sort({ finishDate: -1 });
+     res.send(eventsEnded);
+};
+
 ctrl.removeEvent = async (req,res) => {
     await UserConection.deleteOne({ id_event: req.params.id });
     await Event.findByIdAndDelete(req.params.id);
@@ -46,7 +51,8 @@ ctrl.cancelEvent = async (req,res) => {
 };
 
 ctrl.defineWinner = async (req,res) => {
-    const data = { finished: true, winner: req.body.winner }; // los datos que vamos a colocar para que la base de datos sepa que ya hemos terminado el evento
+    const date = new Date();
+    const data = { finished: true, winner: req.body.winner, finishDate: date }; // los datos que vamos a colocar para que la base de datos sepa que ya hemos terminado el evento
     await Event.findByIdAndUpdate(req.params.id, data); // actualizamos los datos del evento para decirle que ya finalizamos
     await UserConection.updateMany({id_event: req.params.id}, data); // igualmente lo hacemos con la apuesta que hizo el usuario para que pase al historial
 
