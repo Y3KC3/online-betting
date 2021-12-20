@@ -105,7 +105,7 @@ ctrl.generateReport = async (req,res) => {
         report.eventWithLowerTotal = eventWithLowerTotal;
     } else { report.eventWithLowerTotal = { error: null }};
     if (options.amountAndBettors) {
-        const amountAndBettors = await User.find().limit(5).sort({ balance: 1 });
+        const amountAndBettors = await User.find().limit(5).sort({ balance: -1 });
         report.amountAndBettors = amountAndBettors;
     } else { report.amountAndBettors = { error: null } };
     res.json(report);
