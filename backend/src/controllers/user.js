@@ -2,7 +2,8 @@ const passport = require('passport');
 const hash = require('../helpers/hash');
 const User = require('../models/User');
 const Admin = require('../models/Admin');
-const { UserConection } = require('../models/Event');
+const Dashboard = require('../models/Dashboard');
+const { Event, UserConection } = require('../models/Event');
 
 const ctrl = {};
 
@@ -30,13 +31,43 @@ ctrl.userIsAuthenticated = async (req,res) => {
     const auth = (req.app.locals.user !== undefined && req.app.locals.user !== null) ? true : false;
     if (auth) res.json({authentication: auth, user: req.app.locals.user});
     else res.json({authentication: auth});
-    
+
     const admin = await Admin.find();
     if (admin.length == 0) {
         const createAdmin = new Admin({ password: '123456' });
         createAdmin.password = await hash.scryptPassword(createAdmin.password);
         await createAdmin.save();
     };
+
+    const dashboardData = await Dashboard.find();
+    if (dashboardData.length == 0) {
+        const newDashboardData = new Dashboard();
+        await newDashboardData.save();
+    }
+
+    const totalWon = [];
+
+    const organizers = await User.find({ userType: 'organizer' });
+    const lastWeekEvents = await Event.find({ finished: true }).sort({ finishDate: -1 });
+    
+    let eventDate;
+    let arrayCount = -1;
+    lastWeekEvents.map(event => {
+        const date = new Date(event.finishDate);
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+        if (`${day}-${month}-${year}` == eventDate) { totalWon[arrayCount] += event.totalAmount } 
+        else {
+            totalWon.push(event.totalAmount);
+            if (arrayCount < 7) arrayCount++;
+            else { return };
+        };
+        eventDate = `${day}-${month}-${year}`;
+    });
+    //if (totalWon.length < 7) { for(let i = 0; i >= totalWon.length + 7; i++) { totalWon.push[0] }};
+
+    await Dashboard.updateMany({ idDasboard: 1 },{ organizers: organizers.length, totalWon });
 };
 
 ctrl.logOut = (req,res) => { 

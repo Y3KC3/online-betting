@@ -1,3 +1,4 @@
+const Dashboard = require('../models/Dashboard');
 const User = require('../models/User');
 const { Event, UserConection } = require('../models/Event');
 
@@ -11,16 +12,17 @@ ctrl.createEvent = async (req,res) => {
 
 ctrl.getEvents = async (req,res) => {
     if (req.body.length === 0) {
-        const events = await Event.find().sort({ paymentDate: 1 });
+        const events = await Event.find({ finished: false }).sort({ paymentDate: 1 });
         return res.json(events);
     } else {
-        const events = await Event.find(req.body);
+        req.body.finished = false;
+        const events = await Event.find(req.body).sort({ paymentDate: 1 });
         return res.json(events);
     };
 };
 
 ctrl.eventsEnded = async (req,res) => {
-     const eventsEnded = await Event.find({ finished: true }).sort({ finishDate: -1 });
+     const eventsEnded = await Event.find({ finished: true }).limit(15).sort({ finishDate: -1 });
      res.send(eventsEnded);
 };
 
@@ -52,18 +54,22 @@ ctrl.cancelEvent = async (req,res) => {
 
 ctrl.defineWinner = async (req,res) => {
     const date = new Date();
-    const data = { finished: true, winner: req.body.winner, finishDate: date }; // los datos que vamos a colocar para que la base de datos sepa que ya hemos terminado el evento
+    const data = { finished: true, winner: req.body.winner, result: req.body.result, finishDate: date }; // los datos que vamos a colocar para que la base de datos sepa que ya hemos terminado el evento
     await Event.findByIdAndUpdate(req.params.id, data); // actualizamos los datos del evento para decirle que ya finalizamos
     await UserConection.updateMany({id_event: req.params.id}, data); // igualmente lo hacemos con la apuesta que hizo el usuario para que pase al historial
 
     const eventTotalAmount = await Event.findOne({ _id: req.params.id }); // buscamos el evento el cual finalizo la apuesta
     const bettingHouseCommission = eventTotalAmount.totalAmount * 0.1; // luego cobramos el 10% de comision total de lo que se aposto para el evento
     
-    // Falta crear una base de datos para guardar la cantidad de dinero en comision //
     console.log('Monto Total Sin Comision: ',eventTotalAmount.totalAmount) // Monto total sin comision
     console.log('Comision De La Casa De Apuesta: ', bettingHouseCommission); // Por ahora solo mostramos la comision pedida
+    
+    const dashboard = await Dashboard.findOne({ idDashboard: 1 });
+    await Dashboard.updateMany({ idDashboard: 1 },{ totalAmount: dashboard.totalAmount + bettingHouseCommission });
+
     await Event.findByIdAndUpdate(req.params.id, { totalAmount: eventTotalAmount.totalAmount - bettingHouseCommission }); // le quitamos el dinero de comision al total de dinero del evento
     const event = await Event.findOne({ _id: req.params.id }); // Para Actualizar El Dinero Restante
+    
     console.log('Monto Restante: ', event.totalAmount);
     
     let winnersMoney = 0; // agarramos el monto total de los ganadores

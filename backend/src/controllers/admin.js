@@ -1,3 +1,4 @@
+const Dashboard = require('../models/Dashboard');
 const Admin = require('../models/Admin');
 const User = require('../models/User');
 const hash = require('../helpers/hash');
@@ -30,6 +31,11 @@ ctrl.userControl = async (req,res) => {
 ctrl.updateRank = async (req,res) => {
     await User.findByIdAndUpdate(req.params.id,req.body);
     res.send('Usuario Actualizado');
+};
+
+ctrl.dashboardData = async (req,res) => {
+    const dashboard = await Dashboard.find();
+    res.send(dashboard[0]);
 };
 
 module.exports = ctrl;

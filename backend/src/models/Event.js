@@ -10,7 +10,8 @@ const EventSchema = new Schema({
     finished: { type: Boolean, default: false },
     winner: { type: String, default: null },
     creationDate: { type: Date, default: Date.now  },
-    finishDate: { type: Date, default: null }
+    finishDate: { type: Date, default: null },
+    result: { type: String, default: null }
 });
 
 const UserConectionWithEvent = new Schema({
