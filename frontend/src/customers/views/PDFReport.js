@@ -69,7 +69,7 @@ function PDFReport({ report }) {
                                         <Text style={{ fontSize: '12px' }}>Direccion De Residencia: {user.residenceAddress}</Text>
                                         <Text style={{ fontSize: '12px' }}>Municipio: {user.municipality}</Text>
                                         <Text style={{ fontSize: '12px' }}>Sexo: {user.sex}</Text>
-                                        <Text style={{ fontSize: '12px' }}>Saldo: {user.balance}</Text>
+                                        <Text style={{ fontSize: '12px' }}>Saldo: ${user.balance}</Text>
                                         <Text style={{ fontSize: '12px' }}>Fecha De Creacion: {user.creationDate}</Text>
                                     </View>
                                 )}

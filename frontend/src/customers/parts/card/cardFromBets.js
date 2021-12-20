@@ -7,7 +7,7 @@ const bets = (id, bets) => {
     document.getElementById('confirmButtonToBet').setAttribute('value', bets);
 };
 
-const betEvent = (user, bet, teamOne, teamTwo) => {
+const betEvent = (user, bet, teamOne, teamTwo,setEventBet,setDataUser) => {
     const amount = document.getElementById('inputMoneyToBet').value;
     if (amount <= user.balance) {
         const confirmBet = window.confirm(`Esta Seguro Que Desea Apostar: ${amount}$ A: ${bet}`);
@@ -20,7 +20,10 @@ const betEvent = (user, bet, teamOne, teamTwo) => {
                 amount,
                 bet,
                 game: `${teamOne} Vs ${teamTwo}`
-            }).then(() => { window.location.reload(); }).catch(error => console.log(error));
+            }).then(() => { 
+                setEventBet([]);
+                axios.post('http://localhost:3001/user/isAuthenticated').then(res => setDataUser(res.data.user)).catch(error => console.log(error));
+            }).catch(error => console.log(error));
         };
     } else {
         document.getElementById('doesNotHaveMoney').style.display = 'block';
@@ -28,7 +31,7 @@ const betEvent = (user, bet, teamOne, teamTwo) => {
     };
 };
 
-function CardFromBets({ title, teamOne, teamBetOne, teamTwo, teamBetTwo, id, dataUser, betValidation }) { //En vez de escribir muchas veces esta etiqueta lo ponemos aqui solo para requerirlo y ponerlo una vez
+function CardFromBets({ title, teamOne, teamBetOne, teamTwo, teamBetTwo, id, dataUser, betValidation, setEventBet, setDataUser }) { //En vez de escribir muchas veces esta etiqueta lo ponemos aqui solo para requerirlo y ponerlo una vez
     return (
         <div className="col-5" style={{ border: '2px solid #fff' }}>
             <div className="p-1">
@@ -65,7 +68,7 @@ function CardFromBets({ title, teamOne, teamBetOne, teamTwo, teamBetTwo, id, dat
                         <h4 id="betTitle" className='title'></h4>
                         <input id="inputMoneyToBet" type="number" className="form-control" placeholder="Digite La Cantidad A Apostar" />
                         <div className='p-3 row gap-2'>
-                            <button id="confirmButtonToBet" className='col btn text-light' style={{ background: "#fb7b33" }} onClick={e => betEvent(dataUser, e.target.value, teamOne, teamTwo)}>Confirmar</button>
+                            <button id="confirmButtonToBet" className='col btn text-light' style={{ background: "#fb7b33" }} onClick={e => betEvent(dataUser, e.target.value, teamOne, teamTwo,setEventBet,setDataUser)}>Confirmar</button>
                             <button className='col btn btn-danger' onClick={() => document.getElementById('moneyToBet').style.display = 'none'}>Cancelar</button>
                         </div>
                         <p id="doesNotHaveMoney" className="my-1 text-center" style={{ display: 'none' }}>NO EXISTE CANTIDAD EN SU CUENTA</p>

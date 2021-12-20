@@ -2,16 +2,17 @@ import { Link, useNavigate } from 'react-router-dom'; // Gracias a esto podemos 
 import NavLink from '../parts/link'; // Aqui importamos lo que seria la estructura de formacion de los Links
 import axios from 'axios';
 
-const logOut = (setUser, setDataUser, navigate) => {
+const logOut = (setUser, setDataUser, navigate,setEventBet) => {
     axios.post('http://localhost:3001/user/logOut')
         .then(() => {
             navigate('/');
             setUser(false);
             setDataUser(null);
+            setEventBet([]);
         }).catch(error => console.log(error));
 };
 
-function Nav({ auth, dataUser, setUser, setDataUser }) { //aqui lo exportamos de una vez //normalmente los nombre de las clases la primera letra se le pone en mayuscula no hay problema con que no se ponga es cuestion de gustos
+function Nav({ auth, dataUser, setUser, setDataUser, setEventBet }) { //aqui lo exportamos de una vez //normalmente los nombre de las clases la primera letra se le pone en mayuscula no hay problema con que no se ponga es cuestion de gustos
     const navigate = useNavigate();
     const onClickToExit = () => { document.querySelector('.sidebar').style.transform = 'translateX(400px)' }
     return (
@@ -73,7 +74,7 @@ function Nav({ auth, dataUser, setUser, setDataUser }) { //aqui lo exportamos de
                         </div>
                     </div>
                     <div className='p-2 w-100 mt-4 d-flex justify-content-center'>
-                        <button className="d-block btn text-center nav-link text-light" onClick={() => { onClickToExit(); logOut(setUser, setDataUser, navigate) }} style={{ background: '#fb7b33' }}>Cerrar Seccion</button>
+                        <button className="d-block btn text-center nav-link text-light" onClick={() => { onClickToExit(); logOut(setUser, setDataUser, navigate,setEventBet) }} style={{ background: '#fb7b33' }}>Cerrar Seccion</button>
                     </div>
                 </div>
             </div>

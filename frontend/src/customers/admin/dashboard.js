@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 
 import {
@@ -60,7 +61,7 @@ function Dashboard({ events, users, dashboard }) {
     const data = {
         labels: ['Lunes', 'Mates', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
         datasets: [{
-            label: '# of Votes',
+            label: 'Monto De Eventos',
             data: dashboard.totalWon,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -89,8 +90,7 @@ function Dashboard({ events, users, dashboard }) {
                         <h4 className="text-light font-weight-bold mb-0 text-center">BETFAIR</h4>
                     </div>
                     <div className="menu">
-                        <a href="#" class="d-block p-3 border-0 nav-link text-light text-center"><i class="icon ion-md-apps lead mr-2"></i>
-                            Tablero</a>
+                        <button class="btn d-block p-3 border-0 nav-link text-light text-center">Tablero</button>
                     </div>
                 </div>
 
@@ -104,7 +104,7 @@ function Dashboard({ events, users, dashboard }) {
                                     <p class="lead text-muted">Revisa la última información</p>
                                 </div>
                                 <div class="col-lg-3 col-md-4 d-flex">
-                                    <button class="btn w-100 align-self-center text-light" style={{ background: '#fb7b33' }}>Descargar reporte</button>
+                                    <Link class="btn w-100 align-self-center text-light" to="/generate/report" style={{ background: '#fb7b33' }}>Descargar reporte</Link>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +192,7 @@ function Dashboard({ events, users, dashboard }) {
                                                     </div>
                                                 </div>
                                             </div>}
-                                        <button class="btn w-100 text-light" style={{ background: '#fb7b33' }}>Ver todas</button>
+                                        <Link class="btn w-100 text-light" style={{ background: '#fb7b33' }} to="/finish/event">Ver todas</Link>
                                     </div>
                                 </div>
                             </div>

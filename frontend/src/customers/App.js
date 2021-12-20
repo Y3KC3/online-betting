@@ -68,7 +68,7 @@ const setAllEventsBet = (setEventBet,setBets) => {
         bets.push((bet.bet !== 'Empate') ? bet.bet : bet.id_event); 
         setBets(bets); 
       });
-      setEventBet((userBets.length == 0) ? [{ error: 'No exist best' }]:userBets);
+      setEventBet((userBets.length == 0) ? { error: true }:userBets);
     }).catch(error => console.log(error));
 };
 
@@ -113,18 +113,18 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
   return ( // aqui lo retornamos y va a ir la sintaxis de JSX que es un parecido a html (no lo confundas no es html es un parecido)
     <div>
       <Router>
-        <Nav auth={user} dataUser={dataUser} setUser={setUser} setDataUser={setDataUser}/>
+        <Nav auth={user} dataUser={dataUser} setUser={setUser} setDataUser={setDataUser} setEventBet={setEventBet}/>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signUp" element={<SignUp setUsers={setUsers}/>} />
           <Route path="/signIn" element={<SignIn setUser={setUser} setDataUser={setDataUser} />} />
           <Route path="/admin/signIn" element={<AdminSignIn setUser={setUser} setDataUser={setDataUser} />} />
-          <Route path="/bets" element={<Bets leagueEvents={leagueEvents} setLeagueEvents={setLeagueEvents} events={events} setEvents={setEvents} dataUser={dataUser} eventBet={eventBet} bets={bets}/>} />
+          <Route path="/bets" element={<Bets leagueEvents={leagueEvents} setLeagueEvents={setLeagueEvents} events={events} setEvents={setEvents} dataUser={dataUser} eventBet={eventBet} bets={bets} setEventBet={setEventBet} setDataUser={setDataUser}/>} />
           <Route path="/results" element={<Results eventsEnded={eventsEnded}/>} />
           <Route path="/news" element={<News />} />
           
           <Route path="/user/balance" element={<Balance dataUser={dataUser} setDataUser={setDataUser}/>} />
-          <Route path="/user/myBets" element={<MyBets eventBet={eventBet} setEventBet={setEventBet}/>} />
+          <Route path="/user/myBets" element={<MyBets eventBet={eventBet} setEventBet={setEventBet} setDataUser={setDataUser}/>} />
           <Route path="/user/statistics" element={<Construction />} />
           <Route path="/user/setting" element={<Construction />} />
 
