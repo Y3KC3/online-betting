@@ -1,12 +1,7 @@
 import axios from 'axios';
 
-const activeAmount = (balance) => {
-    document.getElementById('amount').style.display = 'flex';
-    document.getElementById('inputAmount').value = balance;
-};
-
 const updateBalance = (id,newBalance,setDataUser) => {
-    const confirmBalance = window.confirm(`¿Esta Seguro Que Quieres Actualizar Tu Saldo Actual A ${newBalance}$?`);
+    const confirmBalance = window.confirm(`¿Esta Seguro Que Quieres Agregar A Tu Saldo Actual ${newBalance}$?`);
     if(confirmBalance) {
         document.getElementById('amount').style.display = 'none';
         axios.post(`http://localhost:3001/update/user/balance/${id}`, { balance: newBalance })
@@ -20,7 +15,7 @@ function Balance ({ dataUser, setDataUser }){
             <div className="p-5 text-light w-50 text-center" style={{ background: '#21252933' }}>
                 <h3 className="pb-2" style={{ borderBottom: '1px solid #fff' }}>SALDO ACTUAL</h3>
                 <h1 style={{ border: '1px solid #fff' }}>{dataUser.balance}$</h1>
-                <button className="btn text-light d-block w-100 mt-2" style={{ background: '#fb7b33' }} onClick={() => { activeAmount(dataUser.balance) }}>Recargar</button>
+                <button className="btn text-light d-block w-100 mt-2" style={{ background: '#fb7b33' }} onClick={() => { document.getElementById('amount').style.display = 'flex'; }}>Recargar</button>
             </div>
             <div id="amount">
                 <div className="card p-2" style={{ width: '35%' }}>
