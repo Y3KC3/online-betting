@@ -1,26 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const createEvent = (navigate,setEvents) => {
+const createEvent = (navigate,setEvents,setEventsEnded) => {
     const description = document.getElementById('eventDescription').value;
     const paymentDate = document.getElementById('paymentDate').value;
     const league = document.getElementById('league').value;
     const teamOne = document.getElementById('teamOne').value;
     const teamTwo = document.getElementById('teamTwo').value;
-    axios.post('http://localhost:9000/create/event',{ description, paymentDate, league, teamOne, teamTwo })
+    axios.post('http://localhost:3001/create/event',{ description, paymentDate, league, teamOne, teamTwo })
         .then(() => { 
             setEvents([]);
+            setEventsEnded([]);
             navigate('/finish/event');
         }).catch(error => console.log(error));
 };
 
-function CreateEvent({ setEvents }) {
+function CreateEvent({ setEvents,setEventsEnded }) {
     const navigate = useNavigate();
     return (
         <div className="createEvent-container p-4 d-flex justify-content-center">
             <div className="w-100 p-4" style={{ background: "#21252933" }}>
                 <h1 className="card-title text-light">Configurar Evento</h1>
-                <form className="form-control p-4" style={{ background: "transparent"}} onSubmit={e => { e.preventDefault(); createEvent(navigate,setEvents) }}>
+                <form className="form-control p-4" style={{ background: "transparent"}} onSubmit={e => { e.preventDefault(); createEvent(navigate,setEvents,setEventsEnded) }}>
                     <div className="p-3 form-group row">
                         <textarea id="eventDescription" className="form-control col" placeholder="Descripcion Del Evento" style={{ maxHeight: '60px', minHeight: '60px', resize: 'none' }} required></textarea>
                     </div>

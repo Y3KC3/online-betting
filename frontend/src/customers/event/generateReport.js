@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SmallCard, CardByDate, CardByEvent } from '../parts/event/generateReportCard';
 
 const report = (setReport,options,navigate) => {
-    axios.post('http://localhost:9000/generate/report',{options})
+    axios.post('http://localhost:3001/generate/report',{options})
         .then(res => { 
             setReport(res.data);
             navigate('/report/pdf');

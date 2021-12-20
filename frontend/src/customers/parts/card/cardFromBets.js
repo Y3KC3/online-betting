@@ -14,7 +14,7 @@ const betEvent = (user, bet, teamOne, teamTwo) => {
         if (confirmBet) {
             document.getElementById('moneyToBet').style.display = 'none';
             const idEvent = document.getElementById('moneyToBet').getAttribute('value');
-            axios.post('http://localhost:9000/event/bet', {
+            axios.post('http://localhost:3001/event/bet', {
                 id_event: idEvent,
                 id_user: user._id,
                 amount,

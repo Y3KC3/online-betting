@@ -3,7 +3,7 @@ import NavLink from '../parts/link'; // Aqui importamos lo que seria la estructu
 import axios from 'axios';
 
 const logOut = (setUser, setDataUser, navigate) => {
-    axios.post('http://localhost:9000/user/logOut')
+    axios.post('http://localhost:3001/user/logOut')
         .then(() => {
             navigate('/');
             setUser(false);

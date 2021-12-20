@@ -4,7 +4,7 @@ import axios from 'axios';
 const cancelBet = (id_event,id_user,amount, setEventBet,navigate) => {
     const confirmCancel = window.confirm('Estas Seguro Que Quieres Cancelar La Apuesta');
     if (confirmCancel) {
-        axios.post('http://localhost:9000/cancel/event', { id_event, id_user, amount })
+        axios.post('http://localhost:3001/cancel/event', { id_event, id_user, amount })
             .then(res => { navigate('/'); setEventBet([]) }).catch(error => console.log(error));
     };
 };

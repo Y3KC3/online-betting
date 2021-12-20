@@ -14,7 +14,7 @@ const startValidation = (id) => {
     const result = document.querySelector('.buttonInFinishedEventSelected');
     if (!result) { alert('Eliga El Ganador Del Evento') } 
     else {
-        axios.post(`http://localhost:9000/define/winner/${id}`,{ winner: result.value})
+        axios.post(`http://localhost:3001/define/winner/${id}`,{ winner: result.value})
             .then(res => console.log(res.data)).catch(error => console.log(error));
     };
 };
@@ -22,7 +22,7 @@ const startValidation = (id) => {
 const removeEvent = (id,setEvents) => {
     const confirmRemove = window.confirm('ESTAS SEGURO QUE DESEA ELIMINAR EL EVENTO');
     if (confirmRemove){
-        axios.post(`http://localhost:9000/remove/event/${id}`)
+        axios.post(`http://localhost:3001/remove/event/${id}`)
             .then(() => setEvents([])).catch(error => console.log(error));
     };
 };

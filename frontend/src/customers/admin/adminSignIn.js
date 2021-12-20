@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const adminValidation = (data, setUser, setDataUser, navigate) => {
-    axios.post('http://localhost:9000/adminSignIn',{
+    axios.post('http://localhost:3001/adminSignIn',{
         adminName: data.name,
         keyPassword: data.keyPassword,
         password: data.password

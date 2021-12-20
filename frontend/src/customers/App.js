@@ -22,6 +22,7 @@ import Construction from './layouts/construction';
 //-----------Admin----------//
 import AdminSignIn from './admin/adminSignIn';
 import UserControl from './admin/userControl';
+import Dashboard from './admin/dashboard';
 //----------Event-----------//
 import Event from './event/event';
 import CreateEvent from './event/createEvent';
@@ -33,7 +34,7 @@ import PDFReport from './views/PDFReport';
 //------------------------//
 
 const auth = (setUser, setDataUser) => {
-  axios.post('http://localhost:9000/user/isAuthenticated')
+  axios.post('http://localhost:3001/user/isAuthenticated')
     .then(res => {
       const auth = res.data.authentication;
       setUser(auth);
@@ -43,7 +44,7 @@ const auth = (setUser, setDataUser) => {
 };
 
 const setAllUsers = (setUsers) => {
-  axios.post('http://localhost:9000/admin/userControl')
+  axios.post('http://localhost:3001/admin/userControl')
     .then(res => { 
         const users = res.data;
         setUsers(users);
@@ -51,15 +52,15 @@ const setAllUsers = (setUsers) => {
 };
 
 const setAllEvents = (setEvents) => {
-  axios.post('http://localhost:9000/events')
+  axios.post('http://localhost:3001/events')
     .then(res => { 
         const events = res.data;
-        setEvents(events);
+        setEvents((events.length == 0) ? { error: true } : events);
     }).catch(error => console.log(error));
 };
 
 const setAllEventsBet = (setEventBet,setBets) => {
-  axios.post('http://localhost:9000/get/user/bet')
+  axios.post('http://localhost:3001/get/user/bet')
     .then(res => {
       const userBets = res.data;
       const bets = [];
@@ -68,6 +69,14 @@ const setAllEventsBet = (setEventBet,setBets) => {
         setBets(bets); 
       });
       setEventBet((userBets.length == 0) ? [{ error: 'No exist best' }]:userBets);
+    }).catch(error => console.log(error));
+};
+
+const setAllEventsEnded = (setEventsEnded) => {
+  axios.post('http://localhost:3001/events/ended')
+    .then(res => { 
+        const events = res.data;
+        setEventsEnded((events.length == 0) ? { error: true } : events);
     }).catch(error => console.log(error));
 };
 
@@ -80,12 +89,14 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
   const [eventBet,setEventBet] = useState([]);
   const [bets,setBets] = useState([]);
   const [report,setReport] = useState([]);
+  const [eventsEnded,setEventsEnded] = useState([]);
 
   useEffect(() => { 
     if (!user) auth(setUser, setDataUser);
     if (users.length === 0) { setAllUsers(setUsers) };
     if (events.length === 0) { setAllEvents(setEvents) };
     if (eventBet.length === 0) { setAllEventsBet(setEventBet,setBets) };
+    if (eventsEnded.length === 0) { setAllEventsEnded(setEventsEnded) };
   });
 
   return ( // aqui lo retornamos y va a ir la sintaxis de JSX que es un parecido a html (no lo confundas no es html es un parecido)
@@ -98,7 +109,7 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
           <Route path="/signIn" element={<SignIn setUser={setUser} setDataUser={setDataUser} />} />
           <Route path="/admin/signIn" element={<AdminSignIn setUser={setUser} setDataUser={setDataUser} />} />
           <Route path="/bets" element={<Bets leagueEvents={leagueEvents} setLeagueEvents={setLeagueEvents} events={events} setEvents={setEvents} dataUser={dataUser} eventBet={eventBet} bets={bets}/>} />
-          <Route path="/results" element={<Results />} />
+          <Route path="/results" element={<Results eventsEnded={eventsEnded}/>} />
           <Route path="/news" element={<News />} />
           
           <Route path="/user/balance" element={<Balance dataUser={dataUser} setDataUser={setDataUser}/>} />
@@ -107,11 +118,11 @@ function App() { //creamos la clase para utilizarlo como componente principal y 
           <Route path="/user/setting" element={<Construction />} />
 
           <Route path="/event" element={<Event />} />
-          <Route path="/create/event" element={<CreateEvent setEvents={setEvents}/>} />
+          <Route path="/create/event" element={<CreateEvent setEvents={setEvents} setEventsEnded={setEventsEnded}/>} />
           <Route path="/finish/event" element={<FinishEvent events={events} setEvents={setEvents}/>} />
           <Route path="/generate/report" element={<GenerateReport setReport={setReport}/>} />
 
-          <Route path="/admin/dashboard" element={<Construction />}/>
+          <Route path="/admin/dashboard" element={<Dashboard />}/>
           <Route path="/admin/userControl" element={<UserControl users={users} setUsers={setUsers}/>}/> 
           <Route path="/admin/setting" element={<Construction />} />
 

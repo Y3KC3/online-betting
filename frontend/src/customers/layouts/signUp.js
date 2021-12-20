@@ -90,7 +90,7 @@ const onValidation = (navigate,setUsers) => { //creamos la funcion para mostrar 
     if (fields.documentType && fields.email && fields.expeditionPlace && fields.identificationNumber && fields.firstName && fields.secondName && fields.lastName && fields.secondSurname && fields.password && fields.repeatPassword && fields.municipality && fields.residenceAddress && fields.phoneNumber){
         document.querySelector('.fieldsError').classList.remove('show');
         document.getElementById('signUpForm').reset();
-        axios.post('http://localhost:9000/signup', state)
+        axios.post('http://localhost:3001/signup', state)
         .then(res => { 
             setUsers([]);
             navigate('/signIn');

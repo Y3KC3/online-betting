@@ -3,7 +3,7 @@ import axios from 'axios';
 const removeUser = (id,setUsers) => {
     const verification = window.confirm('ESTAS SEGURO QUE DESEA ELIMINAR EL USUARIO ',id);
     if (verification) {
-        axios.post(`http://localhost:9000/remove/user/${id}`)
+        axios.post(`http://localhost:3001/remove/user/${id}`)
             .then(() => { setUsers([]) }).catch(error => console.log(error));
     };
 };
@@ -18,7 +18,7 @@ const updateRank = (id,userType,setUsers) => {
     const confirmUpdating = window.confirm(`¿Esta Seguro Que Quiere Cambiar El Rango Del Usuario?`);
     if(confirmUpdating) {
         document.getElementById('changeRank').style.display = 'none';
-        axios.post(`http://localhost:9000/update/rank/user/${id}`, { userType })
+        axios.post(`http://localhost:3001/update/rank/user/${id}`, { userType })
             .then(() => { setUsers([]) }).catch(error => console.log(error));
     };
 };

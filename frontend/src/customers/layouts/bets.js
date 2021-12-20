@@ -2,7 +2,7 @@ import axios from 'axios';
 import Card from '../parts/card/cardFromBets'; // Importamos lo que seria la estructura de formacion de las Cartas de esta zona de la pagina
 
 const getLeagueEvents = (league, setLeagueEvents, setEvents) => {
-    axios.post('http://localhost:9000/events', { league })
+    axios.post('http://localhost:3001/events', { league })
         .then(res => { 
             setLeagueEvents(res.data);
             setEvents([]);

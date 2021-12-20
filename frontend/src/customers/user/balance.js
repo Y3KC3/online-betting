@@ -9,7 +9,7 @@ const updateBalance = (id,newBalance,setDataUser) => {
     const confirmBalance = window.confirm(`¿Esta Seguro Que Quieres Actualizar Tu Saldo Actual A ${newBalance}$?`);
     if(confirmBalance) {
         document.getElementById('amount').style.display = 'none';
-        axios.post(`http://localhost:9000/update/user/balance/${id}`, { balance: newBalance })
+        axios.post(`http://localhost:3001/update/user/balance/${id}`, { balance: newBalance })
             .then(res => setDataUser(res.data)).catch(error => console.log(error));
     };
 };
